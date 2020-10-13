@@ -2,6 +2,8 @@ package com.mytest;
 
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Arrays;
+
 
 public class MyTask2 {
     /**
@@ -22,6 +24,17 @@ public class MyTask2 {
                                        @IntRange(from = 0) int offset,
                                        @IntRange(from = 1) int readLength) {
 //TODO реализовать метод
+
+        //задание 2 прайс лист и скидки
+//        int[] price = {5, 100, 20, 66, 16};
+//
+//        MyTask2 upData = new MyTask2();
+//        price = upData.decryptData(price, 50, 1, 3);
+//
+//        String newPrice = Arrays.toString(price);
+//
+//        System.out.print(newPrice);
+
 
         if (discount >= 1 && discount <= 99) {
 

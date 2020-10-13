@@ -7,7 +7,7 @@ public class MyTest {
     public static void main(String[] args) {
         //задание 1
 
-        Vacancy[] vacancies = {new Vacancy("Developer"),new Vacancy("Engineer")};
+        Vacancy[] vacancies = {new Vacancy("Developer"), new Vacancy("Engineer")};
         ArrayList<Vacancy> vacanciesBase = new ArrayList<>(Arrays.asList(vacancies));
         vacanciesBase.add(new Vacancy("Programmer"));
         vacanciesBase.add(new Vacancy("Сleaner"));
@@ -16,20 +16,9 @@ public class MyTest {
 
         usersBase.add(new User(1, vacanciesBase.get(0)));
         usersBase.add(new User(2, vacanciesBase.get(3)));
-
+        usersBase.add(new User(3, vacanciesBase.get(1)));
 
         showConsole(usersBase);
-
-
-        //задание 2 прайс лист и скидки
-        int[] price = {5, 100, 20, 66, 16};
-
-        MyTask2 upData = new MyTask2();
-        price = upData.decryptData(price, 50, 1, 3);
-
-        String newPrice = Arrays.toString(price);
-
-        System.out.print(newPrice);
 
     }
 
@@ -56,7 +45,6 @@ public class MyTest {
         long getId() {
             return id;
         }
-
     }
 
     static class Vacancy {
