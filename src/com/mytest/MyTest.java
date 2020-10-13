@@ -7,26 +7,43 @@ public class MyTest {
     public static void main(String[] args) {
         //задание 1
 
-        Vacancy[] vacancies = {new Vacancy("Developer"), new Vacancy("Engineer")};
+        Vacancy[] vacancies = {item("Developer"), item("Engineer")};
         ArrayList<Vacancy> vacanciesBase = new ArrayList<>(Arrays.asList(vacancies));
-        vacanciesBase.add(new Vacancy("Programmer"));
-        vacanciesBase.add(new Vacancy("Сleaner"));
+        vacanciesBase.add(item("Programmer"));
+        vacanciesBase.add(item("Сleaner"));
 
         ArrayList<User> usersBase = new ArrayList<User>();
 
-        usersBase.add(new User(1, vacanciesBase.get(0)));
-        usersBase.add(new User(2, vacanciesBase.get(3)));
-        usersBase.add(new User(3, vacanciesBase.get(1)));
+        usersBase.add(user(1, 0, vacanciesBase));
+        usersBase.add(user(2, 10, vacanciesBase));
+        usersBase.add(user(3, 1, vacanciesBase));
+        usersBase.add(user(4, 2, vacanciesBase));
 
         showConsole(usersBase);
 
     }
 
-    private static void showConsole(ArrayList<User> usersBase) {
-        for (int i = 0; i < usersBase.size(); i++) {
-            System.out.println(usersBase.get(i).getId());
-            System.out.println(usersBase.get(i).getVacancy());
+    private static Vacancy item(String nameVacancy) {
+        return new Vacancy(nameVacancy);
+    }
+
+    private static User user(int id, int idVacancy, ArrayList<Vacancy> baseVacancy) {
+        try {
+            return new User(id, baseVacancy.get(idVacancy));
+        } catch (IndexOutOfBoundsException e) {
+            return null;
         }
+    }
+
+    private static void showConsole(ArrayList<User> usersBase) {
+
+        for (int i = 0; i < usersBase.size(); i++) {
+            if (usersBase.get(i) != null) {
+                System.out.println(usersBase.get(i).getId());
+                System.out.println(usersBase.get(i).getVacancy());
+            } else System.out.println("Такой вакансии не существует");
+        }
+
     }
 
     static class User {
