@@ -24,34 +24,50 @@ public class MyTask2 {
                                        @IntRange(from = 0) int offset,
                                        @IntRange(from = 1) int readLength) {
 //TODO реализовать метод
-
-        //задание 2 прайс лист и скидки
-//        int[] price = {5, 100, 20, 66, 16};
-//
-//        MyTask2 upData = new MyTask2();
-//        price = upData.decryptData(price, 50, 1, 3);
-//
-//        String newPrice = Arrays.toString(price);
-//
-//        System.out.print(newPrice);
+        final int COUNT=price.length-1;
+        final int COUNT_READ=offset+readLength-1;
 
 
-        if (discount >= 1 && discount <= 99) {
-
-            int[] newPrice = new int[readLength];
-            int i, j;
-            for (i = offset, j = 0; j < newPrice.length; i++, j++) {
-                price[i] = (int) Math.floor(price[i] - ((price[i] * discount) / 100));
-                newPrice[j] = price[i];
-            }
-            System.out.println("Прайс-лист обновлен успешно.\nЦены со скидкой:" + discount + "%");
-            return newPrice;
-        } else {
-            System.out.println("Недопустимый размер скидки!\nПрайс-лист не обновлен! ");
+        if (discount < 1 || discount > 99) {
+            showInfo();
             return price;
+        } else if (offset>COUNT||COUNT_READ>COUNT||readLength==0) {
+            showInfo();
+            return price;
+        } else {
+            int[] newPrice = new int[readLength]; //Exception in thread "main" java.lang.NegativeArraySizeException: -1
+            int i, j;
+            try {
+                for (i = offset, j = 0; j < newPrice.length; i++, j++) {
+                    price[i] = (int) Math.floor(price[i] - ((price[i] * discount) / 100));
+                    newPrice[j] = price[i];
+                }
+            } catch (ArrayIndexOutOfBoundsException err) {
+                showInfo(err.getMessage());
+                return price;
+            }
+            showInfo(discount);
+            return newPrice;
         }
 
     }
 
 
+    public void showPrice(int[] price) {
+        System.out.print(Arrays.toString(price));
+    }
+
+    private void showInfo() {
+        System.out.println("Ошибка!\nПрайс-лист не обновлен!\nНекорректные входные параметры!");
+    }
+
+    private void showInfo(int discount) {
+        System.out.println("Прайс-лист обновлен успешно.\nЦены со скидкой:" + discount + "%");
+    }
+
+    private void showInfo(String msg) {
+        System.out.println("Ошибка!\nПрайс-лист не обновлен!\n" + msg);
+    }
+
 }
+

@@ -5,11 +5,10 @@ import java.util.Arrays;
 
 public class MyTest {
     public static void main(String[] args) {
-        //задание 1
+        //region Задание 1 результат
         User tester = new User(7, new Vacancy("Developer"));
         System.out.println(tester.getId());
         System.out.println(tester.getVacancy());
-
         //первоначальный массив вакансии
         Vacancy[] vacancies = {item("Developer"), item("Engineer")};
         //список вакнасии на основе первоначального массива
@@ -17,10 +16,8 @@ public class MyTest {
         //дополнительные вакансии
         vacanciesBase.add(item("Programmer"));
         vacanciesBase.add(item("Сleaner"));
-
         //список кандидатов
         ArrayList<User> usersBase = new ArrayList<User>();
-
         //добавляем кандидата на соответсвующую вакансию
         usersBase.add(user(0, 0, vacanciesBase));
         usersBase.add(user(1, 10, vacanciesBase));
@@ -31,9 +28,16 @@ public class MyTest {
         usersBase.add(new User(5, new Vacancy("temp_vacancy1")));
         //выводим базу кандидатов
         showConsole(usersBase);
+        //endregion
 
+        //region Задание 2 результат
+        int[] price = {5, 100, 20, 66, 16};
+        MyTask2 upData = new MyTask2();
+        upData.showPrice(upData.decryptData(price, 30, 0, -1));
+        //endregion
     }
 
+    //region Задание 1
     private static Vacancy item(String nameVacancy) {
         return new Vacancy(nameVacancy);
     }
@@ -91,4 +95,5 @@ public class MyTest {
             return nameVacancy;
         }
     }
+    //endregion
 }
