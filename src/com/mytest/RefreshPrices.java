@@ -3,9 +3,14 @@ package com.mytest;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Arrays;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
-public class MyTask2 {
+public class RefreshPrices {
+
+    private final static Logger logger = Logger.getLogger(RefreshPrices.class.getName());
+
     /**
      * Метод "скидка". Применяет скидку discount к цене price, начиная с позиции
      * offset
@@ -24,49 +29,33 @@ public class MyTask2 {
                                        @IntRange(from = 0) int offset,
                                        @IntRange(from = 1) int readLength) {
 //TODO реализовать метод
-        final int COUNT=price.length-1;
-        final int COUNT_READ=offset+readLength-1;
-
-
+        int[] newPrice = new int[0];
         if (discount < 1 || discount > 99) {
-            showInfo();
-            return price;
-        } else if (offset>COUNT||COUNT_READ>COUNT||readLength==0) {
-            showInfo();
-            return price;
+            logger.log(Level.WARNING,"The parameter <discount> value must be in the range from 1 to 99.");
+            return newPrice;
+        } else if (readLength == 0) {
+            logger.log(Level.WARNING,"The parameter <readLength> value must not be null.");
+            return newPrice;
         } else {
-            int[] newPrice = new int[readLength]; //Exception in thread "main" java.lang.NegativeArraySizeException: -1
             int i, j;
             try {
+                newPrice = new int[readLength];
                 for (i = offset, j = 0; j < newPrice.length; i++, j++) {
                     price[i] = (int) Math.floor(price[i] - ((price[i] * discount) / 100));
                     newPrice[j] = price[i];
                 }
-            } catch (ArrayIndexOutOfBoundsException err) {
-                showInfo(err.getMessage());
-                return price;
+            } catch (NegativeArraySizeException | ArrayIndexOutOfBoundsException err) {
+                logger.log(Level.WARNING, err.getMessage(), err);
+                return newPrice;
             }
-            showInfo(discount);
+            logger.log(Level.INFO, "A new array of prices has been generated successfully.");
             return newPrice;
         }
 
     }
 
-
     public void showPrice(int[] price) {
-        System.out.print(Arrays.toString(price));
-    }
-
-    private void showInfo() {
-        System.out.println("Ошибка!\nПрайс-лист не обновлен!\nНекорректные входные параметры!");
-    }
-
-    private void showInfo(int discount) {
-        System.out.println("Прайс-лист обновлен успешно.\nЦены со скидкой:" + discount + "%");
-    }
-
-    private void showInfo(String msg) {
-        System.out.println("Ошибка!\nПрайс-лист не обновлен!\n" + msg);
+        System.out.print("result:" + Arrays.toString(price));
     }
 
 }

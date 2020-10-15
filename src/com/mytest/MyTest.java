@@ -32,8 +32,8 @@ public class MyTest {
 
         //region Задание 2 результат
         int[] price = {5, 100, 20, 66, 16};
-        MyTask2 upData = new MyTask2();
-        upData.showPrice(upData.decryptData(price, 30, 0, -1));
+        RefreshPrices upData = new RefreshPrices();
+        upData.showPrice(upData.decryptData(price, 30, 0, 5));
         //endregion
     }
 
